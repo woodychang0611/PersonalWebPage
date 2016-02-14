@@ -1,0 +1,93 @@
+﻿@model IEnumerable<SketchBoard.Models.SketchModel>
+
+
+
+
+
+@{
+    ViewBag.Title = "Index";
+}
+
+
+<h2>Index</h2>
+
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+<div id="main-container" class="container">
+    @foreach (var item in Model)
+    {
+        <div class="col-md-4">
+            <div class="well">
+                @Html.Partial("_SketchBoard",item)
+                @Html.DisplayFor(m => item)
+                <button class="deleteButton btn btn-default" data-toggle="modal"
+                        data-target="#deleteConfirmModal" hasPassword="@item.HasPassword" target-id="@item.Id">
+                    Delete
+                </button>
+                @item.HasPassword
+            </div>
+        </div>
+    }
+</div>
+
+
+@{
+    if (ViewBag.Message != null)
+    {
+        <script>
+            $(function () {
+                alert('@ViewBag.Message');
+            }
+            )
+        </script>
+    }
+}
+
+<!-- Modal -->
+<div class="modal fade" id="deleteConfirmModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        @using (Html.BeginForm("Delete", "Sketch", FormMethod.Post))
+            {
+            @Html.AntiForgeryToken()
+            <div class="modal-content">
+                <div class="modal-header">Confrim</div>
+                <div class=" modal-body">
+                    <div class="text-warning">Are you sure to delete?</div>
+                    <div id="passwordSection">
+                        <input type="password" name="password" placeholder="Please input password" />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <input type="hidden" name="id" />
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <input type="submit" value="Delete" class="btn btn-default" />
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<script>
+    $(document).on("click", ".deleteButton", function () {
+        var id = $(this).attr('target-id');
+        targetId = id;
+        var hasPassword = $(this).attr('hasPassword');
+
+        if (!hasPassword) {
+            $('#passwordSection').css("visibility", "hidden");
+        }
+        if (hasPassword) {
+            $('#passwordSection').css("visibility", "visible");
+        }
+        $("input[name$='password']").val('');
+        $("input[name$='id']").val(id);
+    });
+</script>
+
+<script>
+    $(refreshCanvas());
+    $(window).resize(function () { refreshCanvas() });
+</script>

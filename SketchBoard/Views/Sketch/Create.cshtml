@@ -1,0 +1,40 @@
+﻿@model SketchBoard.Models.SketchModel
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+<script src="~/Scripts/SketchCreate.js"></script>
+
+@using (Html.BeginForm("Create", "Sketch", FormMethod.Post, new { ng_app = "myApp" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal" ng-controller="myController">
+        <h4>SketchModel</h4>
+        @Html.HiddenFor(m => m.Id)
+        @Html.HiddenFor(m => m.PasswordHash)
+        @Html.HiddenFor(m => m.Salt)
+        <label>Data</label><br />
+        @Html.EditorFor(m => m.Data)
+        <br />
+        <label>Password</label><br />
+        <input type="password" name="password" placeholder="Password" ng-model="password" />
+        <br />
+        <label>Repeat Password</label><br />
+        <input type="password" name="repeatPassword" placeholder="Repeat Password" ng-model="repeatPassword" />
+        <span class="text-danger" ng-hide="isPasswordRepeat">Please repeat password</span>
+        <span class="text-success" ng-show="isPasswordRepeat">OK</span>
+        <br />
+        <input type="submit" id="createButton" value="Create" class="btn btn-default" ng-disabled="! isPasswordRepeat"/>
+        <hr />
+        <br />
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
