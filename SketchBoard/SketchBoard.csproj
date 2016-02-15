@@ -116,7 +116,8 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
-    <Content Include="Scripts\SketchCreate.js" />
+    <Content Include="Scripts\sketchBoard.js" />
+    <Content Include="Scripts\sketchCreate.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>

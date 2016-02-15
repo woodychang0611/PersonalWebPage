@@ -1,5 +1,5 @@
 ﻿@model IEnumerable<SketchBoard.Models.SketchModel>
-
+<script src="~/Scripts/sketchBoard.js"></script>
 
 
 
@@ -21,7 +21,7 @@
     {
         <div class="col-md-4">
             <div class="well">
-                @Html.Partial("_SketchBoard",item)
+                <canvas width="1000" height="618" style="background-color:chartreuse;" class="sketchCanvas" draw-data="@item.Id"></canvas>
                 @Html.DisplayFor(m => item)
                 <button class="deleteButton btn btn-default" data-toggle="modal"
                         data-target="#deleteConfirmModal" hasPassword="@item.HasPassword" target-id="@item.Id">
@@ -34,17 +34,6 @@
 </div>
 
 
-@{
-    if (ViewBag.Message != null)
-    {
-        <script>
-            $(function () {
-                alert('@ViewBag.Message');
-            }
-            )
-        </script>
-    }
-}
 
 <!-- Modal -->
 <div class="modal fade" id="deleteConfirmModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -70,6 +59,21 @@
     </div>
 </div>
 
+
+<!-- Show Error Message-->
+@{
+    if (ViewBag.Message != null)
+    {
+        <script>
+            $(function () {
+                alert('@ViewBag.Message');
+            }
+            )
+        </script>
+    }
+}
+
+<!-- Script for delete Modal -->
 <script>
     $(document).on("click", ".deleteButton", function () {
         var id = $(this).attr('target-id');
@@ -88,6 +92,7 @@
 </script>
 
 <script>
-    $(refreshCanvas());
-    $(window).resize(function () { refreshCanvas() });
+    $(resizeCanvas('sketchCanvas'));
+    $(redrawCanvas('sketchCanvas'));
+    $(window).resize(function () { resizeCanvas('sketchCanvas') });
 </script>
