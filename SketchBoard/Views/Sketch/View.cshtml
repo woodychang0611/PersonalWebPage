@@ -1,0 +1,16 @@
+﻿@model SketchBoard.Models.SketchModel
+
+<script src="~/Scripts/sketchNew.js"></script>
+<script src="~/Scripts/sketchBoard.js"></script>
+
+<h1>View</h1>
+@Html.ActionLink("Back", "Index", "Sketch")
+<div>
+        <canvas id="main" width="1000" height="618" style="background-color:#FFFFCC;" class="sketchCanvas fix-aspect-ratio" aspect-ratio="0.618" draw-data="@Model.Data"></canvas>
+</div>
+
+
+
+<script>
+    $(redrawCanvas($('.sketchCanvas')));
+</script>

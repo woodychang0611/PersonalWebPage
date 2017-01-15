@@ -1,38 +1,37 @@
 ﻿@model IEnumerable<SketchBoard.Models.SketchModel>
 <script src="~/Scripts/sketchBoard.js"></script>
 
-
-
-
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Sketch Board";
 }
 
 
-<h2>Index</h2>
-
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-
 <div id="main-container" class="container">
+    <br />
+    <div class="col-xs-12">
+        @Html.ActionLink("New Sketch", "New", null, new { @class = "btn btn-info" })
+    </div>
+    <br />
+    <br />
+
     @foreach (var item in Model)
     {
-        <div class="col-md-4">
+        <div class="col-lg-3 col-md-4 col-sm-6">
             <div class="well">
-                <canvas width="1000" height="618" style="background-color:chartreuse;" class="sketchCanvas" draw-data="@item.Id"></canvas>
-                @Html.DisplayFor(m => item)
-                <button class="deleteButton btn btn-default" data-toggle="modal"
+                <a href="/Sketch/View/@item.Id">
+                    <div>
+                    <canvas width="1000" height="618" style="background-color:#FFFFCC;" class="sketchCanvas fix-aspect-ratio" aspect-ratio="0.618" draw-data="@item.Data"></canvas>
+                </div>
+                </a>
+                   <button class="deleteButton btn btn-default" data-toggle="modal"
                         data-target="#deleteConfirmModal" hasPassword="@item.HasPassword" target-id="@item.Id">
                     Delete
                 </button>
-                @item.HasPassword
             </div>
         </div>
     }
+    <br />
 </div>
-
 
 
 <!-- Modal -->
@@ -92,7 +91,5 @@
 </script>
 
 <script>
-    $(resizeCanvas('sketchCanvas'));
-    $(redrawCanvas('sketchCanvas'));
-    $(window).resize(function () { resizeCanvas('sketchCanvas') });
+    $(redrawCanvas($('.sketchCanvas')));
 </script>

@@ -55,11 +55,10 @@ function startDrawing(event) {
     var pos = getXY(event);
     context.beginPath();
     context.moveTo(pos.x, pos.y);
-    currentColor= colors[colorIndex];
+
     context.strokeStyle = currentColor;
-    context.lineWidth = 5;
+    context.lineWidth = currentLineWidth;
     $('#output').html("mouseDownReporter");
-    colorIndex = (colorIndex + 1) % colors.length;
     isDrawing = true;
     xPoints = [pos.x];
     yPoints = [pos.y];
@@ -68,12 +67,11 @@ function startDrawing(event) {
 function endDrawing() {
 
     if (isDrawing) {
-        var temp = { color: currentColor, xPoints: xPoints, yPoints: yPoints };
+        var temp = { color: currentColor,lineWidth:currentLineWidth, xPoints: xPoints, yPoints: yPoints };
         data.push(temp);
 
         var str = JSON.stringify(data);
-        //var str = data.toString();
-        $('#output').html(str);
+        $("input[name$='data']").val(str);
         isDrawing = false;
     }
 }
@@ -81,7 +79,7 @@ function endDrawing() {
 
 
 function moveReporter(event) {
-    if (isDrawing) {
+    if (isDrawing && currentColor != '') {
         var pos = getXY(event);
         var str = "";
         str = "x:" + pos.x + ",y:" + pos.y + ",count:" + count;
@@ -91,8 +89,6 @@ function moveReporter(event) {
             context.lineTo(pos.x, pos.y);
             xPoints.push(pos.x);
             yPoints.push(pos.y);
-
-            //  context.quadraticCurveTo(lastPos.x , lastPos.y, pos.x, pos.y);
             context.stroke();
             lastPos = pos;
             document.body.style.overflowY = "hidden";
@@ -100,17 +96,56 @@ function moveReporter(event) {
     }
     return true;
 }
-
 var canvas = null;
 var context = null;
-var colors = ['red', 'blue', 'lime', 'yellow', 'cyan','orange'];
+
 var colorIndex = 0;
 var isDrawing = false;
+var colors = ['black','red', 'blue', 'lime', 'yellow', 'cyan', 'gold','purple'];
 var currentColor = '';
+var currentLineWidth = 10;
 var lastPos = { x: 0, y: 0 };
 var xPoints = [];
 var yPoints = [];
 var data = [];
+
+function createColorPicker(target)
+{
+
+    for (var key in colors) {
+        var color = colors[key];
+         var d = document.createElement('div');
+        $(d)
+        .attr('class', 'colorElement col-xs-1')
+        .css('background-color', color)
+        .css('border-radius','5px')
+        .attr('color', color)
+        .css('min-width', 30)
+        .css('min-height', 30)
+        .css('max-width', 30)
+        .css('max-height', 30)
+        .css('margin', 5)
+        .css('border', '3px solid transparent')
+        .click(function () { setColor($(this)) });
+        $('#' + target).append(d);
+    }
+    $('#' + target).css('background-color', 'slategray')
+    .css('border-radius', '10px');
+}
+
+function setColor(target)
+{
+    var color = target.attr('color');
+    $('.colorElement').css('border', '3px solid transparent');
+    if (currentColor == color) {
+        currentColor = '';
+    }
+    else {
+        currentColor = color;
+        target.css('border', '3px solid lightgray ');
+    }
+}
+
 
 $(function () {
     canvas = $('#main')[0];

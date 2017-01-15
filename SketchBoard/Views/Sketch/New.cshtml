@@ -1,31 +1,30 @@
 ﻿@model SketchBoard.Models.SketchModel
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "New";
 }
 
-<h2>Create</h2>
-
-<script src="~/Scripts/sketchCreate.js"></script>
+<script src="~/Scripts/sketchNew.js"></script>
 <script src="~/Scripts/sketchBoard.js"></script>
 
-@using (Html.BeginForm("Create", "Sketch", FormMethod.Post, new { ng_app = "myApp" }))
+<h2>New Sketch</h2>
+
+@using (Html.BeginForm("New", "Sketch", FormMethod.Post, new { ng_app = "myApp" }))
 {
     @Html.AntiForgeryToken()
 
     <div class="container" ng-controller="myController">
-        <h4>SketchModel</h4>
         <div class="col-sm-8">
-            <canvas id="main" width="1000" height="618" style="background-color:blueviolet;"  class="sketchCanvas" draw-data="@Model.Id"></canvas>
+            <canvas id="main" width="1000" height="618" style="background-color:#FFFFCC;"  class="sketchCanvas fix-aspect-ratio" aspect-ratio="0.618" draw-data="@Model.Id"></canvas>
         </div>
 
-        <div class="col-sm-4">
+        <div class="col-xs-4">
             @Html.HiddenFor(m => m.Id)
             @Html.HiddenFor(m => m.PasswordHash)
             @Html.HiddenFor(m => m.Salt)
-            <label>Data</label><br />
-            <input type="text" name="data" placeholder="Data" ng-model="data" />
-            <br />
+            <input type="hidden" name="data" placeholder="Data" ng-model="data" />
+            <div id="colorPicker"  class="container-fluid "></div>
+            <br/>
             <label>Password</label><br />
             <input type="password" name="password" placeholder="Password" ng-model="password" />
             <br />
@@ -34,20 +33,19 @@
             <span class="text-danger" ng-hide="isPasswordRepeat">Please repeat password</span>
             <span class="text-success" ng-show="isPasswordRepeat">OK</span>
             <br />
-            <input type="submit" id="createButton" value="Create" class="btn btn-default" ng-disabled="! isPasswordRepeat" />
+            <br/>
+            <input type="submit" id="createButton" value="Save" class="btn btn-default" ng-disabled="! isPasswordRepeat" />
+            <input type="button"  class="btn btn-default" value="Cancel" onclick="location.href=''" />
+
             <hr />
             <br />
-            <div id="output"></div>
         </div>
     </div>
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
 
 <script>
-    $(resizeCanvas('sketchCanvas'));
-    $(redrawCanvas('sketchCanvas'));
-    $(window).resize(function () { resizeCanvas('sketchCanvas') });
+    $(createColorPicker('colorPicker'));
+  //  maintainAspectRatio($('.sketchCanvas'), 618 / 1000);
 </script>
+

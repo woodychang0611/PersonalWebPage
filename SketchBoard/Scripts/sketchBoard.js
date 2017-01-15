@@ -1,40 +1,34 @@
-﻿function redrawCanvas(targetClass) {
-    $('.' + targetClass).each(
+﻿function redrawCanvas(target) {
+    target.each(
         function () {
-            //Test purpose only
-            dummyDrawCanvas($(this)[0], $(this).attr('draw-data'));
-        }
-     )
-
-}
-
-function resizeCanvas(targetClass) {
-
-    $('.' + targetClass).each(
-        function () {
-            var w = $(this).parent().width();
-            $(this).css('width', w);
-            $(this).css('height', w * 618/1000);
+            drawCanvasData($(this)[0], $(this).attr('draw-data'));
         }
      )
 }
 
-//Test purpose only
-function dummyDrawCanvas(target, data) {
-    var canvas = target;
+function drawCanvasData(targetCanvas, data) {
+    var canvas = targetCanvas;
     var ctx = canvas.getContext("2d");
 
-    ctx.lineWidth = 15;
-    ctx.strokeStyle = 'yellow';
-    ctx.beginPath();
-    ctx.moveTo(0, 0);
-    ctx.lineTo(500, 500);
-    ctx.stroke();
-    ctx.moveTo(500, 0);
-    ctx.lineTo(0, 500);
-    ctx.stroke();
-
-    ctx.font = "50px Arial";
-    ctx.fillText(data, 500, 500);
-
+    try {
+        var strokes = JSON.parse(data);
+        for (var key in strokes)
+        {
+            var stroke = strokes[key];
+            ctx.lineWidth = stroke.lineWidth;
+            ctx.strokeStyle = stroke.color;
+            var n = stroke.xPoints.length;
+            ctx.beginPath();
+            ctx.moveTo(stroke.xPoints[0], stroke.yPoints[0]);
+            for (i = 1; i < n; i++) 
+            {
+                ctx.lineTo(stroke.xPoints[i], stroke.yPoints[i]);
+            }
+            ctx.stroke();
+        }
+    }
+    catch (e) {
+        ctx.font = "50px Arial";
+        ctx.fillText(e.toString(), 30, 30);
+    }
 }

@@ -98,14 +98,19 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
-    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\bootstrap.min.customize.css" />
+    <Content Include="Content\bootstrap.min.original.css" />
     <Content Include="Content\Site.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <None Include="Properties\PublishProfiles\woody.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Image\MirrorMechanism-1.png" />
+    <Content Include="Image\SV3000-2_Sheet_1-1.png" />
+    <Content Include="Image\SV3000-2_Sheet_2-1.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -117,7 +122,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\sketchBoard.js" />
-    <Content Include="Scripts\sketchCreate.js" />
+    <Content Include="Scripts\sketchNew.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -134,23 +139,27 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\web.config" />
+    <Content Include="Views\web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="packages.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Sketch\Create.cshtml" />
-    <Content Include="Views\Sketch\Delete.cshtml" />
+    <Content Include="Views\Sketch\New.cshtml" />
     <Content Include="Views\Sketch\Details.cshtml" />
-    <Content Include="Views\Sketch\Edit.cshtml" />
     <Content Include="Views\Sketch\Index.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Sketch\_SketchBoard.cshtml" />
+    <Content Include="Views\Home\MechanicalDesign.cshtml" />
+    <Content Include="Scripts\woodychang0611.common.js" />
+    <Content Include="Views\Sketch\View.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
+      <SubType>Designer</SubType>
     </None>
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
+      <SubType>Designer</SubType>
     </None>
   </ItemGroup>
   <ItemGroup>

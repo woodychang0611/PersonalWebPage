@@ -23,8 +23,9 @@ namespace SketchBoard.Controllers
             return View(db.SketchModels.ToList());
         }
 
-        // GET: SketchModels/Details/5
-        public ActionResult Details(int? id)
+        // GET: SketchModels/View/
+        [HttpGet, ActionName("View")]
+        public ActionResult ViewGet(int ?id)
         {
             if (id == null)
             {
@@ -35,11 +36,12 @@ namespace SketchBoard.Controllers
             {
                 return HttpNotFound();
             }
-            return View(sketchModel);
+            return View("View",sketchModel);
         }
 
-        // GET: SketchModels/Create
-        public ActionResult Create()
+       
+        // GET: SketchModels/New
+        public ActionResult New()
         {
             SketchModel sketchModel = new SketchModel();
             return View(sketchModel);
@@ -50,7 +52,7 @@ namespace SketchBoard.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(SketchModel sketchModel)
+        public ActionResult New(SketchModel sketchModel)
         {
             var password = Request["password"];
 
@@ -62,60 +64,13 @@ namespace SketchBoard.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
             return View(sketchModel);
         }
 
-        // GET: SketchModels/Edit/5
-        public ActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            SketchModel sketchModel = db.SketchModels.Find(id);
-            if (sketchModel == null)
-            {
-                return HttpNotFound();
-            }
-            return View(sketchModel);
-        }
-
-        // POST: SketchModels/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Data")] SketchModel sketchModel)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(sketchModel).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View(sketchModel);
-        }
-
-        // GET: SketchModels/Delete/5
-        //public ActionResult Delete(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-        //    SketchModel sketchModel = db.SketchModels.Find(id);
-        //    if (sketchModel == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    return View(sketchModel);
-        //}
-
-        // POST: SketchModels/Delete/5
+        // POST: SketchModels/Delete/
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult tDeleteConfirmed(int? id, string password)
+        public ActionResult DeleteConfirmed(int? id, string password)
         {
             SketchModel sketchModel = db.SketchModels.Find(id);
             if (sketchModel.CheckPassword(password) || !sketchModel.HasPassword)

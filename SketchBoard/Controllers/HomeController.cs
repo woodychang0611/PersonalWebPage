@@ -13,5 +13,11 @@ namespace SketchBoard.Controllers
         {
             return View();
         }
+
+
+        public ActionResult MechanicalDesign()
+        {
+            return View();
+        }
     }
 }
