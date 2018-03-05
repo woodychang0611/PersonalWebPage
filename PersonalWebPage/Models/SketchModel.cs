@@ -5,7 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Helpers;
 
-namespace SketchBoard.Models
+namespace PersonalWebPage.Models
 {
 
     public class SketchModel

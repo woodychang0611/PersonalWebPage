@@ -6,10 +6,10 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using SketchBoard.Models;
+using PersonalWebPage.Models;
 using System.Text;
 
-namespace SketchBoard.Controllers
+namespace PersonalWebPage.Controllers
 {
     public class SketchController : Controller
     {
@@ -19,7 +19,7 @@ namespace SketchBoard.Controllers
 
         // GET: SketchModels
         public ActionResult Index()
-        {
+        {   
             return View(db.SketchModels.ToList());
         }
 

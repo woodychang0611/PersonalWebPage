@@ -4,7 +4,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 
-namespace SketchBoard.Models
+namespace PersonalWebPage.Models
 {
     public class SketchBoardContext : DbContext
     {
@@ -19,6 +19,6 @@ namespace SketchBoard.Models
         {
         }
 
-        public System.Data.Entity.DbSet<SketchBoard.Models.SketchModel> SketchModels { get; set; }
+        public System.Data.Entity.DbSet<PersonalWebPage.Models.SketchModel> SketchModels { get; set; }
     }
 }
